@@ -8,13 +8,13 @@ import './App.css';
 import { useHandTracking } from './hooks/useHandTracking';
 import { useWebSerial } from './hooks/useWebSerial';
 import { VideoCanvas } from './components/VideoCanvas';
-import { ControlPanel } from './components/ControlPanel';
-import { StatusDisplay } from './components/StatusDisplay';
-import { DebugPanel } from './components/DebugPanel';
+import { LetterButton } from './components/LetterButton';
+import { CenterDisplay } from './components/CenterDisplay';
 import { ErrorBanner } from './components/ErrorBanner';
 
 function App() {
   const [error, setError] = useState(null);
+  const [completedLetters, setCompletedLetters] = useState(new Set());
 
   // Hand tracking hook
   const {
@@ -55,6 +55,9 @@ function App() {
     if (needsToSend()) {
       sendLetter(targetLetter);
       markSent();
+      
+      // Mark letter as completed
+      setCompletedLetters(prev => new Set([...prev, targetLetter]));
     }
   }, [needsToSend, sendLetter, targetLetter, markSent]);
 
@@ -64,60 +67,69 @@ function App() {
     setError(combinedError);
   }, [trackingError, serialError]);
 
+  // Handle letter selection
+  const handleLetterClick = (letter) => {
+    changeTarget(letter);
+  };
+
+  const availableLetters = ['A', 'I', 'L', 'V', 'Y'];
+
   return (
     <div className="app">
-      <header className="app-header">
-        <h1 className="app-title">
-          <span className="hand-icon">👋</span>
-          Helping Hand
-        </h1>
-        <p className="app-subtitle">Hand Gesture Recognition for ASL Letters</p>
-      </header>
-
       <ErrorBanner error={error} onDismiss={() => setError(null)} />
 
-      <main className="app-main">
-        <div className="app-content">
-          <div className="top-section">
-            <div className="video-section">
-              <VideoCanvas videoRef={videoRef} canvasRef={canvasRef} />
-            </div>
+      {/* Top bar with camera and connect button */}
+      <div className="top-bar">
+        <div className="camera-corner">
+          <VideoCanvas videoRef={videoRef} canvasRef={canvasRef} />
+        </div>
 
-            <div className="control-section">
-              <StatusDisplay
-                currentPrediction={currentPrediction}
-                targetLetter={targetLetter}
-                confirmationCount={confirmationCount}
-                confirmFramesRequired={confirmFramesRequired}
-                isCorrect={isCorrect}
-              />
+        <div className="connect-corner">
+          <button
+            className={`connect-btn-large ${isSerialConnected ? 'connected' : ''}`}
+            onClick={isSerialConnected ? disconnectSerial : connectSerial}
+            disabled={!isSerialSupported}
+          >
+            {isSerialConnected ? '🔌 Connected to Robot' : '🔗 Connect to Arduino'}
+          </button>
+        </div>
+      </div>
 
-              <ControlPanel
-                targetLetter={targetLetter}
-                onTargetChange={changeTarget}
-                isSerialConnected={isSerialConnected}
-                isSerialSupported={isSerialSupported}
-                onSerialConnect={connectSerial}
-                onSerialDisconnect={disconnectSerial}
-                lastSentLetter={lastSent}
-              />
-            </div>
+      {/* Main content area */}
+      <main className="app-main-new">
+        <div className="main-grid">
+          {/* Large center display */}
+          <div className="center-section">
+            <CenterDisplay
+              selectedLetter={targetLetter}
+              isCorrect={isCorrect}
+              confirmationCount={confirmationCount}
+              confirmFramesRequired={confirmFramesRequired}
+            />
           </div>
 
-          <div className="debug-section">
-            <DebugPanel
-              metrics={metrics}
-              currentPrediction={currentPrediction}
-              targetLetter={targetLetter}
-            />
+          {/* Right sidebar with letter buttons */}
+          <div className="letter-sidebar">
+            <h3 className="sidebar-title">Select a Letter</h3>
+            {availableLetters.map(letter => (
+              <LetterButton
+                key={letter}
+                letter={letter}
+                isActive={targetLetter === letter}
+                isCorrect={completedLetters.has(letter)}
+                onClick={() => handleLetterClick(letter)}
+              />
+            ))}
           </div>
         </div>
       </main>
 
-      <footer className="app-footer">
-        <p>Position your hand in view of the camera to detect gestures</p>
-        <p className="footer-hint">
-          Connect to Arduino via USB to control your robot
+      {/* Bottom description */}
+      <footer className="description-bar">
+        <p>
+          {targetLetter 
+            ? `Make the "${targetLetter}" sign with your hand in front of the camera to practice!`
+            : 'Select a letter above to start learning ASL hand signs'}
         </p>
       </footer>
     </div>
