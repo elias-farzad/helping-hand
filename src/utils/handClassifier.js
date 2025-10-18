@@ -22,8 +22,11 @@ export const THRESHOLDS = {
   // General: thumb considered "out" if horizontal spread exceeds this
   thumbSpread: 0.035,
 
-  // A: fist with thumb outside along index
-  A_thumbAwayFromIndexMCP: 0.55,
+  // A: fist with thumb alongside (not in front)
+  // Based on observed correct values:
+  A_thumbSpreadMax: 1.7,           // observed 1.603 for correct position
+  A_thumbNearFist: 0.70,           // thumb must be very close to the side of the fist
+  A_indexThumbAngleMin: 160,      // thumb should be roughly parallel to index (observed 178°)
 
   // I: pinky up only (others down, thumb folded)
   I_pinkyUpGap: 0.05,
@@ -87,9 +90,30 @@ export function classifyGesture(landmarks) {
   const lShape = fingers[0] === 1 && fingers[1] === 1 && fingers[2] === 0 && fingers[3] === 0 && fingers[4] === 0;
   const yShape = fingers[0] === 1 && fingers[4] === 1 && fingers[1] === 0 && fingers[2] === 0 && fingers[3] === 0;
 
-  // --- Classify A: fist + thumb outside along index ---
-  if (allFourDown && fingers[0] === 1 && thumbToIndexMCP >= THRESHOLDS.A_thumbAwayFromIndexMCP) {
-    return 'A';
+  // --- Classify A: fist with thumb alongside ---
+  if (allFourDown) {
+    // Check thumb position relative to fist
+    const thumbSpread = thumbSpreadNormalized(landmarks, pw);
+    const thumbToIndexMCP = normalizedDistance(landmarks, 4, 5, pw);
+    
+    // Get the angle between index finger and thumb
+    const indexX = landmarks[8].x - landmarks[5].x;
+    const indexY = landmarks[8].y - landmarks[5].y;
+    const thumbX = landmarks[4].x - landmarks[2].x;
+    const thumbY = landmarks[4].y - landmarks[2].y;
+    const indexThumbAngle = rayAngleDegrees(indexX, indexY, thumbX, thumbY);
+
+    // Conditions for A:
+    // 1. Thumb spread within normal range (not too far out)
+    const thumbSpreadOK = thumbSpread <= THRESHOLDS.A_thumbSpreadMax;
+    // 2. Thumb close to the side of the fist
+    const thumbNearFist = thumbToIndexMCP <= THRESHOLDS.A_thumbNearFist;
+    // 3. Thumb roughly parallel to index finger
+    const thumbAligned = indexThumbAngle >= THRESHOLDS.A_indexThumbAngleMin;
+    
+    if (thumbSpreadOK && thumbNearFist && thumbAligned) {
+      return 'A';
+    }
   }
 
   // --- Classify I: pinky up only (thumb folded) ---
