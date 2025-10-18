@@ -85,7 +85,7 @@ function App() {
             onClick={isSerialConnected ? disconnectSerial : connectSerial}
             disabled={!isSerialSupported}
           >
-            {isSerialConnected ? '🔌 Connected to Robot' : '🔗 Connect to Arduino'}
+            {isSerialConnected ? '🔌 Connected to Robot Arm' : '🔗 Connect to Robot Arm'}
           </button>
         </div>
       </div>
@@ -123,8 +123,8 @@ function App() {
       <footer className="description-bar">
         <p>
           {selectedLetter 
-            ? `Learning the "${selectedLetter}" sign - Follow the workflow above!`
-            : 'Select a letter to start the learning workflow'}
+            ? `Learning the "${selectedLetter}" sign!`
+            : 'Select a letter to start leaning!'}
         </p>
       </footer>
     </div>

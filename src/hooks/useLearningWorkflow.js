@@ -62,7 +62,7 @@ export function useLearningWorkflow(sendLetter, isCorrect) {
       setWorkflowState(WORKFLOW_STATES.DEMO_RESETTING);
       
       // Step 3: Send 'A' to reset robot
-      await sendLetter('A');
+      await sendLetter('Z');
       
       // Step 4: Wait 1 second for reset
       setTimeout(() => {
