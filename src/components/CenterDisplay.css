@@ -5,13 +5,13 @@
 .center-display {
   background: white;
   border-radius: 20px;
-  padding: 3rem;
+  padding: 2rem;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 500px;
   height: 100%;
+  overflow: hidden;
 }
 
 .welcome-message {
@@ -20,14 +20,14 @@
 }
 
 .welcome-message h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
   color: #667eea;
   font-weight: 700;
 }
 
 .welcome-message p {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   color: #94a3b8;
 }
 
@@ -35,7 +35,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .letter-display {
@@ -43,9 +43,9 @@
 }
 
 .letter-image {
-  font-size: 15rem;
+  font-size: 10rem;
   line-height: 1;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   animation: floatIn 0.6s ease;
 }
 
@@ -61,30 +61,30 @@
 }
 
 .letter-title {
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 800;
   color: #1e293b;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .letter-description {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   color: #64748b;
-  line-height: 1.6;
+  line-height: 1.5;
   max-width: 600px;
   margin: 0 auto;
 }
 
 .status-message {
-  padding: 1.5rem 2rem;
-  border-radius: 16px;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .status-message.success {
@@ -109,14 +109,14 @@
 }
 
 .status-icon {
-  font-size: 2rem;
+  font-size: 1.5rem;
   line-height: 1;
 }
 
 .progress-info {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
   align-items: center;
   width: 100%;
 }
@@ -144,23 +144,22 @@
 /* Responsive */
 @media (max-width: 768px) {
   .center-display {
-    padding: 2rem;
-    min-height: 400px;
+    padding: 1.5rem;
   }
 
   .letter-image {
-    font-size: 10rem;
+    font-size: 8rem;
   }
 
   .letter-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
   .letter-description {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 
   .status-message {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
   }
 }

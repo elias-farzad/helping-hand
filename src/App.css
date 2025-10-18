@@ -4,10 +4,11 @@
  */
 
 .app {
-  min-height: 100vh;
+  height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 /* Top Bar - Camera (left) and Connect Button (right) */
@@ -15,16 +16,16 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 1.5rem;
+  padding: 1rem;
   gap: 1rem;
 }
 
 .camera-corner {
-  width: 320px;
+  width: 240px;
   background: white;
-  border-radius: 16px;
-  padding: 1rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  padding: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .connect-corner {
@@ -33,8 +34,8 @@
 }
 
 .connect-btn-large {
-  padding: 1rem 2rem;
-  font-size: 1.25rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
   font-weight: 700;
   border: none;
   border-radius: 12px;
@@ -63,25 +64,28 @@
 /* Main Content Area */
 .app-main-new {
   flex: 1;
-  padding: 0 1.5rem 1.5rem;
+  padding: 0 1rem 0.5rem;
   display: flex;
   justify-content: center;
   align-items: stretch;
+  min-height: 0;
 }
 
 .main-grid {
   width: 100%;
   max-width: 1600px;
   display: grid;
-  grid-template-columns: 1fr 250px;
-  gap: 2rem;
+  grid-template-columns: 1fr 220px;
+  gap: 1.5rem;
   align-items: stretch;
+  min-height: 0;
 }
 
 /* Center Display Area */
 .center-section {
   display: flex;
   align-items: stretch;
+  min-height: 0;
 }
 
 /* Right Sidebar - Letter Buttons */
@@ -89,20 +93,21 @@
   display: flex;
   flex-direction: column;
   gap: 0;
+  min-height: 0;
 }
 
 .sidebar-title {
   color: white;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Bottom Description Bar */
 .description-bar {
-  padding: 1.5rem;
+  padding: 0.75rem 1rem;
   text-align: center;
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
@@ -112,7 +117,7 @@
 .description-bar p {
   margin: 0;
   color: white;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 500;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
