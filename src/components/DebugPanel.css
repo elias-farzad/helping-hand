@@ -33,11 +33,11 @@
 
 .debug-content {
   padding: 1.5rem;
-  max-height: 500px;
+  max-height: 400px;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem 3rem;
 }
 
 .debug-section {

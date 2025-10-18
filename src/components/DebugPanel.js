@@ -3,17 +3,27 @@
  * Shows detailed metrics for debugging and tuning
  */
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './DebugPanel.css';
 
 export function DebugPanel({ metrics, currentPrediction, targetLetter }) {
   const [isOpen, setIsOpen] = useState(false);
+  const lastMetricsRef = useRef(null);
 
-  if (!metrics) {
+  // Keep last valid metrics to prevent flickering
+  useEffect(() => {
+    if (metrics) {
+      lastMetricsRef.current = metrics;
+    }
+  }, [metrics]);
+
+  const displayMetrics = metrics || lastMetricsRef.current;
+
+  if (!displayMetrics) {
     return null;
   }
 
-  const { fingers, distances, angles, shapes } = metrics;
+  const { fingers, distances, angles, shapes } = displayMetrics;
 
   return (
     <div className="debug-panel">

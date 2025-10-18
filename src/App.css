@@ -60,10 +60,17 @@
 .app-content {
   width: 100%;
   max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Top Section - Video and Controls side by side */
+.top-section {
   display: grid;
   grid-template-columns: 1fr 400px;
   gap: 2rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 .video-section {
@@ -71,12 +78,20 @@
   border-radius: 20px;
   padding: 1.5rem;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
 }
 
 .control-section {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  align-self: stretch;
+}
+
+/* Debug Section - Full width below */
+.debug-section {
+  width: 100%;
 }
 
 /* Footer */
@@ -100,7 +115,7 @@
 
 /* Responsive Design */
 @media (max-width: 1200px) {
-  .app-content {
+  .top-section {
     grid-template-columns: 1fr;
     max-width: 800px;
   }

@@ -78,29 +78,33 @@ function App() {
 
       <main className="app-main">
         <div className="app-content">
-          <div className="video-section">
-            <VideoCanvas videoRef={videoRef} canvasRef={canvasRef} />
+          <div className="top-section">
+            <div className="video-section">
+              <VideoCanvas videoRef={videoRef} canvasRef={canvasRef} />
+            </div>
+
+            <div className="control-section">
+              <StatusDisplay
+                currentPrediction={currentPrediction}
+                targetLetter={targetLetter}
+                confirmationCount={confirmationCount}
+                confirmFramesRequired={confirmFramesRequired}
+                isCorrect={isCorrect}
+              />
+
+              <ControlPanel
+                targetLetter={targetLetter}
+                onTargetChange={changeTarget}
+                isSerialConnected={isSerialConnected}
+                isSerialSupported={isSerialSupported}
+                onSerialConnect={connectSerial}
+                onSerialDisconnect={disconnectSerial}
+                lastSentLetter={lastSent}
+              />
+            </div>
           </div>
 
-          <div className="control-section">
-            <StatusDisplay
-              currentPrediction={currentPrediction}
-              targetLetter={targetLetter}
-              confirmationCount={confirmationCount}
-              confirmFramesRequired={confirmFramesRequired}
-              isCorrect={isCorrect}
-            />
-
-            <ControlPanel
-              targetLetter={targetLetter}
-              onTargetChange={changeTarget}
-              isSerialConnected={isSerialConnected}
-              isSerialSupported={isSerialSupported}
-              onSerialConnect={connectSerial}
-              onSerialDisconnect={disconnectSerial}
-              lastSentLetter={lastSent}
-            />
-
+          <div className="debug-section">
             <DebugPanel
               metrics={metrics}
               currentPrediction={currentPrediction}
