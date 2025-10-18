@@ -29,7 +29,7 @@ export function useWebSerial() {
     try {
       setError(null);
       const selectedPort = await navigator.serial.requestPort();
-      await selectedPort.open({ baudRate: 115200 });
+      await selectedPort.open({ baudRate: 92600 });
       
       const writerStream = selectedPort.writable.getWriter();
       
