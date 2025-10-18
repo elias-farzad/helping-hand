@@ -264,4 +264,12 @@
   .status-message {
     font-size: 1.1rem;
   }
+
+  /* ...existing code... */
+  .demo-img {
+    width: 10x;  /* adjust this value as needed */
+    height: auto;  /* maintains aspect ratio */
+    object-fit: contain;
+  }
+
 }

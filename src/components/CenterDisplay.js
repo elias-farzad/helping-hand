@@ -6,6 +6,11 @@
 
 import React from 'react';
 import './CenterDisplay.css';
+import aImg from '../assets/A.jpg';
+import iImg from '../assets/i.jpg';
+import LImg from '../assets/L.jpg';
+import VImg from '../assets/V.jpg';
+import YImg from '../assets/Y.jpg';
 
 export function CenterDisplay({ 
   workflowState,
@@ -19,15 +24,15 @@ export function CenterDisplay({
     I: "Pinky finger up, all others down, thumb folded",
     L: "Index finger and thumb extended at right angle",
     V: "Index and middle fingers up in peace sign",
-    Y: "Thumb and pinky extended (shaka/hang loose sign)"
+    Y: "Thumb and pinky extended, other fingers folded down"
   };
 
   const letterImages = {
-    A: "🤜",
-    I: "🤙",
-    L: "👌",
-    V: "✌️",
-    Y: "🤙"
+    A: <img src={aImg} alt="A sign" className="demo-img" />,
+    I: <img src={iImg} alt="I sign" className="demo-img" />,
+    L: <img src={LImg} alt="L sign" className="demo-img" />,
+    V: <img src={VImg} alt="V sign" className="demo-img" />,
+    Y: <img src={YImg} alt="Y sign" className="demo-img" />
   };
 
   // Idle state - no letter selected
@@ -84,6 +89,7 @@ export function CenterDisplay({
               {letterImages[selectedLetter]}
             </div>
             <h2 className="workflow-title">Your turn!</h2>
+            
             <p className="letter-description">{letterDescriptions[selectedLetter]}</p>
           </div>
 

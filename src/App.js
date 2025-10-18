@@ -12,9 +12,28 @@ import { VideoCanvas } from './components/VideoCanvas';
 import { LetterButton } from './components/LetterButton';
 import { CenterDisplay } from './components/CenterDisplay';
 import { ErrorBanner } from './components/ErrorBanner';
+import Welcome from './components/Welcome';
 
 function App() {
   const [error, setError] = useState(null);
+  const [showWelcome, setShowWelcome] = useState(() => {
+    try {
+      // Reset stored preference on each load so welcome shows every time
+      localStorage.removeItem('dontShowWelcome');
+      return true;
+    } catch (e) {
+      return true;
+    }
+  });
+
+  const [dontShow, setDontShow] = useState(() => {
+    try {
+      // default to false on each load
+      return false;
+    } catch (e) {
+      return false;
+    }
+  });
 
   // Hand tracking hook
   const {
@@ -71,6 +90,17 @@ function App() {
 
   return (
     <div className="app">
+      {showWelcome && (
+        <Welcome
+          onStart={() => setShowWelcome(false)}
+          dontShow={dontShow}
+          onDontShowChange={(val) => {
+            setDontShow(val);
+            localStorage.setItem('dontShowWelcome', JSON.stringify(Boolean(val)));
+          }}
+        />
+      )}
+
       <ErrorBanner error={error} onDismiss={() => setError(null)} />
 
       {/* Top bar with camera and connect button */}
