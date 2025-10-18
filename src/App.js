@@ -13,8 +13,10 @@ import { LetterButton } from './components/LetterButton';
 import { CenterDisplay } from './components/CenterDisplay';
 import { ErrorBanner } from './components/ErrorBanner';
 import Welcome from './components/Welcome';
+import HomePage from './components/HomePage';
 
 function App() {
+  const [currentView, setCurrentView] = useState('home'); // 'home' or 'app'
   const [error, setError] = useState(null);
   const [showWelcome, setShowWelcome] = useState(() => {
     try {
@@ -39,12 +41,9 @@ function App() {
   const {
     videoRef,
     canvasRef,
-    isInitialized,
     error: trackingError,
-    currentPrediction,
     changeTarget,
     isCorrect,
-    metrics,
     initialize
   } = useHandTracking();
 
@@ -52,7 +51,6 @@ function App() {
   const {
     isConnected: isSerialConnected,
     isSupported: isSerialSupported,
-    lastSent,
     error: serialError,
     connect: connectSerial,
     disconnect: disconnectSerial,
@@ -88,6 +86,11 @@ function App() {
 
   const availableLetters = ['A', 'I', 'L', 'V', 'Y'];
 
+  // Show home page first
+  if (currentView === 'home') {
+    return <HomePage onStartApp={() => setCurrentView('app')} />;
+  }
+
   return (
     <div className="app">
       {showWelcome && (
@@ -102,6 +105,17 @@ function App() {
       )}
 
       <ErrorBanner error={error} onDismiss={() => setError(null)} />
+
+      {/* Navigation bar */}
+      <div className="nav-bar">
+        <button 
+          className="nav-button"
+          onClick={() => setCurrentView('home')}
+        >
+          ← Back to Home
+        </button>
+        <h1 className="app-title">Helping Hand - Learning Mode</h1>
+      </div>
 
       {/* Top bar with camera and connect button */}
       <div className="top-bar">
