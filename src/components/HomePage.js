@@ -1,12 +1,13 @@
 import React from 'react';
 import './HomePage.css';
+import logo from '../assets/helping-hand-logo.svg';
 
 const HomePage = ({ onStartApp }) => {
   const features = [
     {
       icon: '🤖',
-      title: 'Robot Arm Control',
-      description: 'Control an Arduino robot arm using hand gestures'
+      title: 'Learn from the Robotic Hand',
+      description: 'Observe and understand ASL letters as demonstrated by a robotic hand.'
     },
     {
       icon: '✋',
@@ -20,8 +21,8 @@ const HomePage = ({ onStartApp }) => {
     },
     {
       icon: '🎯',
-      title: 'Interactive Practice',
-      description: 'Practice with guided learning workflow'
+      title: 'Interactive Learning Interface',
+      description: 'Engage with a user-friendly interface designed to make learning ASL fun and intuitive.'
     }
   ];
 
@@ -32,9 +33,11 @@ const HomePage = ({ onStartApp }) => {
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
+          <div className="hero-logo">
+            <img src={logo} alt="Helping Hand Logo" className="logo-image" />
+          </div>
           <h1 className="hero-title">
-            Helping Hand
-            <span className="hero-subtitle">AI-Powered ASL Learning</span>
+            AI-Powered ASL Learning
           </h1>
           <p className="hero-description">
             Learn American Sign Language through interactive hand gesture recognition. 
@@ -43,9 +46,6 @@ const HomePage = ({ onStartApp }) => {
           <div className="hero-actions">
             <button className="cta-button primary" onClick={onStartApp}>
               Start Learning
-            </button>
-            <button className="cta-button secondary">
-              Watch Demo
             </button>
           </div>
         </div>
@@ -106,7 +106,7 @@ const HomePage = ({ onStartApp }) => {
             <div className="tech-item">
               <div className="tech-icon">⚡</div>
               <h3>Real-time Processing</h3>
-              <p>Instant gesture recognition and robot control</p>
+              <p>Instant gesture recognition and feedback</p>
             </div>
             <div className="tech-item">
               <div className="tech-icon">🔗</div>
