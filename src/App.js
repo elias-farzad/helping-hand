@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { useHandTracking } from './hooks/useHandTracking';
 import { useWebSerial } from './hooks/useWebSerial';
+import { useLearningWorkflow } from './hooks/useLearningWorkflow';
 import { VideoCanvas } from './components/VideoCanvas';
 import { LetterButton } from './components/LetterButton';
 import { CenterDisplay } from './components/CenterDisplay';
@@ -22,15 +23,9 @@ function App() {
     isInitialized,
     error: trackingError,
     currentPrediction,
-    targetLetter,
-    confirmationCount,
-    confirmFramesRequired,
     isCorrect,
     metrics,
-    initialize,
-    changeTarget,
-    markSent,
-    needsToSend
+    initialize
   } = useHandTracking();
 
   // Web Serial hook
@@ -44,30 +39,25 @@ function App() {
     sendLetter
   } = useWebSerial();
 
+  // Learning workflow hook
+  const {
+    workflowState,
+    selectedLetter,
+    successProgress,
+    startWorkflow,
+    retry
+  } = useLearningWorkflow(sendLetter, isCorrect);
+
   // Initialize camera and hand tracking on mount
   useEffect(() => {
     initialize();
   }, [initialize]);
-
-  // Send letter to robot when gesture is confirmed
-  useEffect(() => {
-    if (needsToSend()) {
-      sendLetter(targetLetter);
-      markSent();
-      
-    }
-  }, [needsToSend, sendLetter, targetLetter, markSent]);
 
   // Combine errors
   useEffect(() => {
     const combinedError = trackingError || serialError;
     setError(combinedError);
   }, [trackingError, serialError]);
-
-  // Handle letter selection
-  const handleLetterClick = (letter) => {
-    changeTarget(letter);
-  };
 
   const availableLetters = ['A', 'I', 'L', 'V', 'Y'];
 
@@ -98,10 +88,10 @@ function App() {
           {/* Large center display */}
           <div className="center-section">
             <CenterDisplay
-              selectedLetter={targetLetter}
-              isCorrect={isCorrect}
-              confirmationCount={confirmationCount}
-              confirmFramesRequired={confirmFramesRequired}
+              workflowState={workflowState}
+              selectedLetter={selectedLetter}
+              successProgress={successProgress}
+              onRetry={retry}
             />
           </div>
 
@@ -112,9 +102,9 @@ function App() {
               <LetterButton
                 key={letter}
                 letter={letter}
-                isActive={targetLetter === letter}
+                isActive={selectedLetter === letter}
                 isCorrect={false}
-                onClick={() => handleLetterClick(letter)}
+                onClick={() => startWorkflow(letter)}
               />
             ))}
           </div>
@@ -124,9 +114,9 @@ function App() {
       {/* Bottom description */}
       <footer className="description-bar">
         <p>
-          {targetLetter 
-            ? `Make the "${targetLetter}" sign with your hand in front of the camera to practice!`
-            : 'Select a letter above to start learning ASL hand signs'}
+          {selectedLetter 
+            ? `Learning the "${selectedLetter}" sign - Follow the workflow above!`
+            : 'Select a letter to start the learning workflow'}
         </p>
       </footer>
     </div>

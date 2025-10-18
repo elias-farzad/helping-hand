@@ -71,12 +71,42 @@
   margin-bottom: 0.75rem;
 }
 
+.workflow-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 0.75rem;
+}
+
+.workflow-title.success-title {
+  color: #22c55e;
+}
+
+.workflow-subtitle {
+  font-size: 1.1rem;
+  color: #64748b;
+  line-height: 1.5;
+}
+
 .letter-description {
   font-size: 1.1rem;
   color: #64748b;
   line-height: 1.5;
   max-width: 600px;
   margin: 0 auto;
+}
+
+.success-icon {
+  animation: successBounce 0.8s ease;
+}
+
+@keyframes successBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
 }
 
 .status-message {
@@ -143,6 +173,74 @@
 .progress-text {
   font-size: 1rem;
   color: #94a3b8;
+}
+
+/* Success Progress Bar (3-second hold) */
+.success-progress-bar {
+  width: 300px;
+  height: 12px;
+  background: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.success-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+  transition: width 0.1s linear;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.success-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shimmer 1s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Retry Button */
+.retry-button {
+  padding: 1rem 2rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+  margin-top: 1rem;
+}
+
+.retry-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+}
+
+.retry-button:active {
+  transform: translateY(0);
 }
 
 /* Responsive */
