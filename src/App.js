@@ -14,7 +14,6 @@ import { ErrorBanner } from './components/ErrorBanner';
 
 function App() {
   const [error, setError] = useState(null);
-  const [completedLetters, setCompletedLetters] = useState(new Set());
 
   // Hand tracking hook
   const {
@@ -56,8 +55,6 @@ function App() {
       sendLetter(targetLetter);
       markSent();
       
-      // Mark letter as completed
-      setCompletedLetters(prev => new Set([...prev, targetLetter]));
     }
   }, [needsToSend, sendLetter, targetLetter, markSent]);
 
@@ -116,7 +113,7 @@ function App() {
                 key={letter}
                 letter={letter}
                 isActive={targetLetter === letter}
-                isCorrect={completedLetters.has(letter)}
+                isCorrect={false}
                 onClick={() => handleLetterClick(letter)}
               />
             ))}
