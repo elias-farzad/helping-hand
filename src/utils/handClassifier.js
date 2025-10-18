@@ -24,9 +24,9 @@ export const THRESHOLDS = {
 
   // A: fist with thumb alongside (not in front)
   // Based on observed correct values:
-  A_thumbSpreadMax: 1.7,           // observed 1.603 for correct position
-  A_thumbNearFist: 0.70,           // thumb must be very close to the side of the fist
-  A_indexThumbAngleMin: 160,      // thumb should be roughly parallel to index (observed 178°)
+    A_thumbSpreadMax: 2.0,           // increased from 1.7 to allow more variation
+    A_thumbNearFist: 0.85,           // increased from 0.70 to be less strict about thumb position
+    A_indexThumbAngleMin: 140,      // decreased from 160 to allow more thumb angle variation
 
   // I: pinky up only (others down, thumb folded)
   I_pinkyUpGap: 0.05,

@@ -73,10 +73,12 @@ function App() {
     }
   }, [selectedLetter, changeTarget]);
 
-  // Initialize camera and hand tracking on mount
+  // Initialize camera only after welcome page is dismissed
   useEffect(() => {
-    initialize();
-  }, [initialize]);
+    if (!showWelcome) {
+      initialize();
+    }
+  }, [showWelcome, initialize]);
 
   // Combine errors
   useEffect(() => {
