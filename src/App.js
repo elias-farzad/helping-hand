@@ -23,6 +23,7 @@ function App() {
     isInitialized,
     error: trackingError,
     currentPrediction,
+    changeTarget,
     isCorrect,
     metrics,
     initialize
@@ -47,6 +48,13 @@ function App() {
     startWorkflow,
     retry
   } = useLearningWorkflow(sendLetter, isCorrect);
+
+  // When the selected letter in the workflow changes, update the hand-tracking target
+  useEffect(() => {
+    if (selectedLetter && changeTarget) {
+      changeTarget(selectedLetter);
+    }
+  }, [selectedLetter, changeTarget]);
 
   // Initialize camera and hand tracking on mount
   useEffect(() => {
