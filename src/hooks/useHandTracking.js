@@ -9,7 +9,7 @@ import { Camera } from '@mediapipe/camera_utils';
 import { classifyGesture, getGestureMetrics, resetClassifierState } from '../utils/handClassifier';
 
 const SMOOTH_WINDOW = 5; // Frames to smooth predictions
-const CONFIRM_FRAMES = 4; // Consecutive frames needed for confirmation
+const CONFIRM_FRAMES = 1; // Consecutive frames needed for confirmation
 
 /**
  * Get majority prediction from history
