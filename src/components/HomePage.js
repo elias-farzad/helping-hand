@@ -54,8 +54,8 @@ const HomePage = ({ onStartApp }) => {
             AI-Powered ASL Learning
           </h1>
           <p className="hero-description">
-            Learn American Sign Language through interactive hand gesture recognition. 
-            Practice ASL letters and control a robot arm with your hand movements.
+            Learn American Sign Language through interactive hand recognition. 
+            Practice ASL letters by using a robot arm to show the ASL signs.
           </p>
           <div className="hero-actions">
             <button className="cta-button primary" onClick={onStartApp}>
