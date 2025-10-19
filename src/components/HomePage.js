@@ -1,6 +1,6 @@
 import React from 'react';
 import './HomePage.css';
-import logo from '../assets/helping-hand-logo.svg';
+import logo from '../assets/logo.png';
 
 const HomePage = ({ onStartApp }) => {
   const features = [
