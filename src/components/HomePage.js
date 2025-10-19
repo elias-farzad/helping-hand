@@ -30,12 +30,26 @@ const HomePage = ({ onStartApp }) => {
 
   return (
     <div className="homepage">
+      {/* Header with Logo */}
+      <header className="homepage-header">
+        <div className="header-content">
+          <div className="logo-container">
+            <img src={logo} alt="Helping Hand Logo" className="header-logo" />
+          </div>
+          <nav className="header-nav">
+            <button className="nav-button" onClick={onStartApp}>
+              Start Learning
+            </button>
+            <button className="nav-button secondary">
+              About
+            </button>
+          </nav>
+        </div>
+      </header>
+
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
-          <div className="hero-logo">
-            <img src={logo} alt="Helping Hand Logo" className="logo-image" />
-          </div>
           <h1 className="hero-title">
             AI-Powered ASL Learning
           </h1>
@@ -50,13 +64,15 @@ const HomePage = ({ onStartApp }) => {
           </div>
         </div>
         <div className="hero-visual">
-          <div className="hand-gesture-demo">
-            <div className="gesture-circle">
-              <span className="gesture-icon">✋</span>
+          <div className="hero-illustration">
+            <div className="illustration-card">
+              <h3>Interactive Learning</h3>
+              <p>Practice ASL letters with real-time feedback</p>
             </div>
-            <div className="gesture-arrow">→</div>
-            <div className="robot-arm">
-              <span className="robot-icon">🤖</span>
+            <div className="illustration-arrow">→</div>
+            <div className="illustration-card">
+              <h3>Robot Control</h3>
+              <p>Control Arduino robot arm with gestures</p>
             </div>
           </div>
         </div>
